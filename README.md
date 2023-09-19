@@ -56,6 +56,8 @@ Here's an overview of the project's folder structure:
 - Kidus Asebe 
 - GitHub: github.com/itskidus02
 
+!THIS IS A BOOTCAMP PROJECT
+
 
 Feel free to customize this README.md file with your specific project details and instructions. Enjoy using your to-do list app!
 
