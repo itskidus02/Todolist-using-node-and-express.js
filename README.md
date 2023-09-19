@@ -55,9 +55,7 @@ Here's an overview of the project's folder structure:
 # Author
 - Kidus Asebe 
 - GitHub: github.com/itskidus02
-
-
-! THIS IS A BOOTCAMP PROJECT 
+Acknowledgments
 
 Feel free to customize this README.md file with your specific project details and instructions. Enjoy using your to-do list app!
 
