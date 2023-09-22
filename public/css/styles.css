@@ -3,7 +3,10 @@ html {
     background-image: linear-gradient(to right bottom, #2a2428, #332432, #39253f, #3a284f, #342c60, #323e79, #285191, #0065a9, #008bc7, #00b1dc, #00d6e9, #5ffbf1);
     min-height: 1000px;
     font-family: 'helvetica neue';
-  }
+    min-height: 100vh; 
+}
+
+
   
   h1 {
     color: #fff;
@@ -97,3 +100,28 @@ html {
     text-align: center;
   }
   
+  .navbar {
+    position: sticky;
+    top: 0;
+    
+    padding: 10px 0;
+    text-align: center;
+}
+
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.navbar li {
+    display: inline-block;
+    margin: 0 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+}
+
+ 
