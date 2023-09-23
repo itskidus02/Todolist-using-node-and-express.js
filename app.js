@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require('mongoose');
  const date = require(__dirname + "/date.js");
 
 const app = express();
@@ -10,7 +11,46 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 
+// connect to the database
 
+mongoose.connect("mongodb://localhost:27017/todolistDB");
+
+
+// database schema
+
+const itemsSchema ={
+  name: String
+};
+
+//mongoose model 
+const Item = mongoose.model(
+  //<"singularcollectionName">,
+  "Item",
+  //<schemaName>
+  itemsSchema
+);
+
+// creating documents
+ const item1 = new Item ({
+  name: "pushup"
+ });
+ const item2 = new Item ({
+  name: "curl"
+ });
+ const item3 = new Item ({ 
+  name: "dip" 
+ });
+
+
+ const defaultItems= [item1,item2,item3];
+
+ Item.insertMany(defaultItems)
+  .then(() => {
+    console.log("success");
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 
 app.get("/", function (req, res) {
