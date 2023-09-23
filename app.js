@@ -30,13 +30,13 @@ const Item = mongoose.model(
 
 // creating documents
 const item1 = new Item({
-  name: "pushup",
+  name: "ADD LIST",
 });
 const item2 = new Item({
-  name: "curl",
+  name: "REMOVE LIST",
 });
 const item3 = new Item({
-  name: "dip",
+  name: "HIT THE + TO ADD",
 });
 
 const defaultItems = [item1, item2, item3];

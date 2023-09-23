@@ -99,7 +99,8 @@ html {
   .navbar {
     position: sticky;
     top: 0;
-    
+    display: flex;
+    justify-content:space-around;
     padding: 10px 0;
     text-align: center;
 }
@@ -110,7 +111,7 @@ html {
 }
 
 .navbar li {
-    display: inline-block;
+    
     margin: 0 20px;
 }
 
