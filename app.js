@@ -72,7 +72,7 @@ app.get("/", function (req, res) {
           });
         res.redirect("/");
       } else {
-        res.render("list", { listTitle: day, newListItems: foundItems });
+        res.render("list", { listTitle: "Today", newListItems: foundItems });
       }
     })
     .catch((err) => {
@@ -83,57 +83,54 @@ app.get("/", function (req, res) {
 app.get("/:customListName", function (req, res) {
   const customListName = req.params.customListName;
 
+  List.findOne({ name: customListName })
+    .then((foundList) => {
+      if (!foundList) {
+        // create new list
+        const list = new List({
+          name: customListName,
+          items: defaultItems,
+        });
 
-   
+        list.save();
 
-List.findOne({ name: customListName })
-  .then((foundList) => {
-    if (!foundList) {
-     // create new list
-     const list = new List({
-      name: customListName,
-      items: defaultItems,
+        res.redirect("/" + customListName);
+      } else {
+        //show existing list
+        res.render("list", {
+          listTitle: foundList.name,
+          newListItems: foundList.items,
+        });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
     });
-
-    list.save();  
-  
-    res.redirect("/" + customListName ); 
-
-    } else {
-     //show existing list
-     res.render("list", { listTitle: foundList.name, newListItems: foundList.items });
-
-
-    }
-  })
-  .catch((err) => {
-    console.error(err);
-  });
-
-
-
-
- 
 });
 
-app.post("/", function (req, res) {
-  let itemName = req.body.newItem;
+app.post("/", async function (req, res) {
+  const itemName = req.body.newItem;
+  const listName = req.body.list;
 
   const item = new Item({
     name: itemName,
   });
 
-  item.save();
-  res.redirect("/");
-
-  //if (req.body.list === "work") {
-  //  workItems.push(item);
-  //  res.redirect("/work");
-  //} else {
-  //  items.push(item);
-  //  res.redirect("/");
-  //}
-});
+  if (listName == "Today") {
+    await item.save();
+    res.redirect("/");
+  } else {
+    try {
+      const foundList = await List.findOne({ name: listName });
+      foundList.items.push(item);
+      await foundList.save();
+      res.redirect("/" + listName);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("An error occurred.");
+    }
+  }
+}); 
 
 app.post("/delete", function (req, res) {
   const checkedItemId = req.body.checkbox;
