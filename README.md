@@ -6,6 +6,7 @@ This is a simple to-do list application built using Node.js and EJS (Embedded Ja
 # Features
  - Create new tasks.
 - Mark tasks as completed.
+- Delete tasks
 - Responsive and user-friendly interface.
 
 # Prerequisites
