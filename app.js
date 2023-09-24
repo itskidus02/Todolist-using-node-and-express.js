@@ -130,19 +130,33 @@ app.post("/", async function (req, res) {
       res.status(500).send("An error occurred.");
     }
   }
-}); 
+});
 
 app.post("/delete", function (req, res) {
   const checkedItemId = req.body.checkbox;
+  const listName = req.body.listName;
 
-  Item.findByIdAndRemove(checkedItemId)
-    .then(() => {
-      console.log("deleted");
-      res.redirect("/");
-    })
-    .catch((err) => {
-      console.log("not deleted", err);
-    });
+  if (listName === "Today") {
+    Item.findByIdAndRemove(checkedItemId)
+      .then(() => {
+        console.log("deleted");
+        res.redirect("/");
+      })
+      .catch((err) => {
+        console.log("not deleted", err);
+      });
+  } else {
+    List.findOneAndUpdate(
+      { name: listName },
+      { $pull: { items: { _id: checkedItemId } } }
+    )
+      .then((foundList) => {
+        res.redirect("/" + listName);
+      })
+      .catch((err) => {
+        console.log("Error:", err);
+      });
+  }
 });
 
 app.get("/work", function (req, res) {
